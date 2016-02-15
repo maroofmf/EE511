@@ -1,10 +1,6 @@
-class person():
-    def __init__(self,a):
-        self.a =a
 
-    def newF(self,b):
-        print(b)
+a=0
+while a!=3:
+    a=3
 
-
-new = person(1)
-new.newF(3)
+print('{0} and {1}'.format('spam', 'eggs'))
