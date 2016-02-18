@@ -3,7 +3,7 @@ Author: Maroof Mohammed Farooq
 USC ID: 7126869945
 EE 511
 Project 2
-Problem 1
+Problem 2
 """
 
 import matplotlib.pyplot as plt
