@@ -24,7 +24,7 @@ class rngWeibull():
 
     def weibullGenerator(self):
         for size in range(0,self.totalSamples):
-            randNumber = ((-math.log1p(-self.uniformGenerator()))**(1/self.shapeParam))
+            randNumber = ((-math.log1p(-self.mathuniformGenerator()))**(1/self.shapeParam))
             self.randomGenerator.append(randNumber)
         return(self.randomGenerator)
 
@@ -48,25 +48,26 @@ class rngWeibull():
         return(sum(chiSquare))
 
 
-def main():
-    randomNumbersObject = rngWeibull(5,1000)
-    randomNumbers = randomNumbersObject.weibullGenerator()
-    xValue = np.arange(1,100.)/50.
-    weibullPDF = randomNumbersObject.weibullPDF(xValue)
 
-    plt.figure(1)
-    count, bins, ignored = plt.hist(randomNumbers)
-    scale = count.max()/weibullPDF[1].max()
-    plt.plot(weibullPDF[0],weibullPDF[1]*scale)
+randomNumbersObject = rngWeibull(5,1000)
+randomNumbers = randomNumbersObject.weibullGenerator()
+xValue = np.arange(1,100.)/50.
+weibullPDF = randomNumbersObject.weibullPDF(xValue)
 
-    chiValue = randomNumbersObject.chiSquareValue(bins,count,scale)
+plt.figure(1)
+count, bins, ignored = plt.hist(randomNumbers)
+scale = count.max()/weibullPDF[1].max()
+plt.plot(weibullPDF[0],weibullPDF[1]*scale)
 
-    print('The Chi Square Value is:', chiValue)
-    plt.show()
+chiValue = randomNumbersObject.chiSquareValue(bins,count,scale)
 
-#BoilerPlate Syntax
-if __name__ == '__main__':
-    main()
+print('The Chi Square Value is:', chiValue)
+print('The DOF is: ',len(bins)-1)
+plt.show()
+
+# #BoilerPlate Syntax
+# if __name__ == '__main__':
+#     main()
 
 
 
