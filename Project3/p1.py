@@ -21,7 +21,7 @@ sampleSize = 300
 
 mixingCoefficient = [0.45, 0.55]
 centroids = [ np.array([0,0]), np.array([3,3])]
-covariance = [np.array([[1,0],[0,1]]),np.array([[1,0],[0,1]])]
+covariance = [np.array([[3,1],[0.5,4]]),np.array([[2,1],[1,4]])]
 randomSamples = gmm.sample_gaussian_mixture(centroids, covariance, mc=mixingCoefficient, samples=sampleSize)
 
 plt.plot(randomSamples[:,0], randomSamples[:,1], '.')
@@ -45,6 +45,7 @@ clusterOneResponsibility = 0
 clusterTwoResponsibility = 0
 
 for junkValue in range(0,1000):
+    likehood1 = gmm.gm_log_likelihood(randomSamples, estimateCentroids, estimateCovariance, estimateMixingCoefficient)
     probabilityTable = []
     clusterOneResponsibility = 0
     clusterTwoResponsibility = 0
@@ -81,6 +82,13 @@ for junkValue in range(0,1000):
 
     estimateCovariance = [(1/clusterOneResponsibility)*clusterOne_estimateCovariance,(1/clusterTwoResponsibility)*clusterTwo_estimateCovariance]
 
+    likehood2=gmm.gm_log_likelihood(randomSamples, estimateCentroids, estimateCovariance, estimateMixingCoefficient)
+
+    if abs(likehood1-likehood2)==0:
+        break
+
+
+print('The number of iterations required: ',junkValue,'\n')
 
 print('The Actual Covariances are: \n',covariance,'\n')
 print('The Estimated Covariances are: \n',estimateCovariance,'\n')

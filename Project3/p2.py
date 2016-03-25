@@ -45,8 +45,9 @@ estimateCovariance = [np.diag((dataConv,dataConv)),np.diag((dataConv+0.1,dataCon
 estimateMixingCoefficient = [0.5,0.5]
 clusterOneResponsibility = 0
 clusterTwoResponsibility = 0
-
+index=0
 for junkValue in range(0,1000):
+    likehood1=gmm.gm_log_likelihood(dataPoints, estimateCentroids, estimateCovariance, estimateMixingCoefficient)
     probabilityTable = []
     clusterOneResponsibility = 0
     clusterTwoResponsibility = 0
@@ -82,7 +83,13 @@ for junkValue in range(0,1000):
         clusterTwo_estimateCovariance = clusterTwo_estimateCovariance + (probabilityTable[i][1])*sf.outerProduct(list(dataPoints[i]-estimateCentroids[1]))
 
     estimateCovariance = [(1/clusterOneResponsibility)*clusterOne_estimateCovariance,(1/clusterTwoResponsibility)*clusterTwo_estimateCovariance]
+    likehood2=gmm.gm_log_likelihood(dataPoints, estimateCentroids, estimateCovariance, estimateMixingCoefficient)
+    index+=1
 
+    if abs(likehood1-likehood2)==0:
+        break
+
+print('The number of iterations required: ',junkValue,'\n')
 print('The Estimated Covariances are: \n',estimateCovariance,'\n')
 print('The Estimated Centroids are: \n',estimateCentroids,'\n')
 print('The Estimated Mixing Coefficients are: \n',estimateMixingCoefficient,'\n')
