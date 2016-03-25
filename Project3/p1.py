@@ -20,8 +20,8 @@ sampleSize = 300
 '''Generate Random Numbers '''
 
 mixingCoefficient = [0.45, 0.55]
-centroids = [ np.array([0,0]), np.array([3,1])]
-covariance = [np.array([[2,0.5],[0.7,1]]),np.array([[2,0.4],[1,3]])]
+centroids = [ np.array([0,0]), np.array([3,3])]
+covariance = [np.array([[1,0],[0,1]]),np.array([[1,0],[0,1]])]
 randomSamples = gmm.sample_gaussian_mixture(centroids, covariance, mc=mixingCoefficient, samples=sampleSize)
 
 plt.plot(randomSamples[:,0], randomSamples[:,1], '.')
@@ -89,7 +89,7 @@ print('The Actual Centroids are: \n',centroids,'\n')
 print('The Estimated Centroids are: \n',estimateCentroids,'\n')
 
 print('The Actual Mixing Coefficients are: \n',mixingCoefficient,'\n')
-print('The Estimated Centroid are: \n',estimateMixingCoefficient,'\n')
+print('The Estimated Mixing Coefficient are: \n',estimateMixingCoefficient,'\n')
 
 print("--- %s seconds ---" % (time.time() - start_time))
 
